@@ -221,9 +221,9 @@ function startListening() {
         (nowSeconds() - offSince) > CFG.timeoutSeconds;
 
       if (wasOffLongEnough) {
-        mode = 0
+        modeState = 0;
       }
-      if (mode == 0 && handleTrigger()) {
+      if (modeState == 0 && handleTrigger()) {
         longPressEligible = true;
         longPressTimer = Timer.set(
           CFG.longPressSeconds * 1000,
