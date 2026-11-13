@@ -1,0 +1,7 @@
+[
+  {
+    "fname": "mode-switch/mode-switch.js",
+    "title": "LED Mode Switch",
+    "description": "Cycles the lamp modes using the Shelly input or virtual button."
+  }
+]
