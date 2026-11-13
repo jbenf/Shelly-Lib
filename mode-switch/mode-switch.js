@@ -146,7 +146,7 @@ function handleTrigger() {
         return;
       }
 
-      if(!timeOut) {
+      if (!timedOut) {
         modeState = 0;
       }
       
