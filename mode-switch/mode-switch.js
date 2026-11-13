@@ -9,7 +9,8 @@ let CFG = {
   longPressSeconds: 1.0,
   pulseMilliseconds: 100,
   storageKey: "lamp_state",
-  virtualButtonId: 200
+  virtualButtonId: 200,
+  debounceMilliseconds: 250
 };
 
 let modeState = 0;
@@ -29,6 +30,21 @@ function nowSeconds() {
 function finish() {
   busy = false;
 }
+
+let lastAcceptedTriggerAt = 0;
+
+function acceptTrigger() {
+  let now = Date.now();
+
+  if (now - lastAcceptedTriggerAt < CFG.debounceMilliseconds) {
+    console.log("Ignored rapid duplicate trigger");
+    return false;
+  }
+
+  lastAcceptedTriggerAt = now;
+  return true;
+}
+
 
 function saveState(callback) {
   Shelly.call(
@@ -185,6 +201,7 @@ function startListening() {
     if (event.component !== "input:" + CFG.inputId || !event.info) return;
 
     if (event.info.event === "btn_down") {
+      if (!acceptTrigger()) return;
       buttonHeld = true;
       longPressEligible = false;
 
