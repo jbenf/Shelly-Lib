@@ -146,7 +146,10 @@ function handleTrigger() {
         return;
       }
 
-      modeState = 0;
+      if(!timeOut) {
+        modeState = 0;
+      }
+      
       offSince = nowSeconds();
       // As in your original logic, lastStarted is not reset here.
       saveState(finish);
@@ -217,7 +220,10 @@ function startListening() {
         offSince > 0 &&
         (nowSeconds() - offSince) > CFG.timeoutSeconds;
 
-      if (handleTrigger() && wasOffLongEnough) {
+      if (wasOffLongEnough) {
+        mode = 0
+      }
+      if (mode == 0 && handleTrigger()) {
         longPressEligible = true;
         longPressTimer = Timer.set(
           CFG.longPressSeconds * 1000,
