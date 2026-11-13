@@ -223,7 +223,7 @@ function startListening() {
       if (wasOffLongEnough) {
         modeState = 0;
       }
-      if (handleTrigger() && modeState == 1 ) {
+      if (handleTrigger() && modeState == 0 ) {
         longPressEligible = true;
         longPressTimer = Timer.set(
           CFG.longPressSeconds * 1000,
